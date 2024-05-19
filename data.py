@@ -34,4 +34,3 @@ class OrderDetails:
             'color': 'grey',
             'comment': 'Тестовый комментарий'
            }
-

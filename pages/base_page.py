@@ -8,6 +8,7 @@ class BasePage:
     def __init__(self, driver):
         self.driver = driver
 
+    @allure.step('Поиск элемента на странице')
     def find_element(self, locator, delay=5):
         return WebDriverWait(self.driver, delay).until(expected_conditions.visibility_of_element_located(locator))
 
@@ -36,4 +37,15 @@ class BasePage:
         button = self.find_element(BasePageLocators.BUTTON_YANDEX)
         button.click()
 
+    @allure.step('Скролл до конца страницы')
+    def scroll_page_to_end(self):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
+    @allure.step('Скролл до элемента')
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+    @allure.step('Перейти на другую вкладку')
+    def switch_to_other_tab(self):
+        window_handles = self.driver.window_handles
+        self.driver.switch_to.window(window_handles[1])

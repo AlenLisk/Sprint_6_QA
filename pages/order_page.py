@@ -95,4 +95,8 @@ class OrderPage(BasePage):
         self.click_button_order()
         self.click_button_yes()
 
+    @allure.step('Получение текста окна оформления заказа')
+    def get_modal_window_text(self):
+        element = self.find_element(OrderPageLocators.MODAL_ORDER_HEADER)
 
+        return element.text

@@ -8,12 +8,11 @@ class HomePage(BasePage):
         button = self.find_element(HomePageLocators.COOKIES_BUTTON)
         button.click()
 
-    @allure.step('Скролл до конца страницы')
-    def scroll_page_to_end(self):
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
     @allure.step('Выбрать вопрос из списка')
-    def select_question(self, locator_question, locator_answer):
+    def select_question(self, number_question):
+        home_page_locators = HomePageLocators()
+        locator_question, locator_answer = home_page_locators.question_locator_generator(number_question)
+
         question = self.find_element(locator_question)
         question.click()
         answer = self.find_element(locator_answer).text
@@ -23,13 +22,8 @@ class HomePage(BasePage):
     @allure.step('Нажать на кнопку Заказать внизу')
     def click_order_button_center(self):
         button = self.find_element(HomePageLocators.ORDER_BUTTON_CENTER)
-        self.driver.execute_script("arguments[0].scrollIntoView();", button)
+        self.scroll_to_element(button)
         button.click()
-
-    @allure.step('Перейти на другую вкладку')
-    def switch_to_other_tab(self):
-        window_handles = self.driver.window_handles
-        self.driver.switch_to.window(window_handles[1])
 
 
 
